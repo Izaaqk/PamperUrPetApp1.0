@@ -15,14 +15,14 @@ public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_mas;
-    private Long id_prop;
-    private Long id_pas;
+    private String nombre_mas;
+    private String raza_mas;
     private Long edad_mas;
 
-    public Mascota(Long id_mas, Long id_prop, Long id_pas, Long edad_mas) {
+    public Mascota(Long id_mas, String nombre_mas, String raza_mas, Long edad_mas) {
         this.id_mas = id_mas;
-        this.id_prop = id_prop;
-        this.id_pas = id_pas;
+        this.nombre_mas = nombre_mas;
+        this.raza_mas = raza_mas;
         this.edad_mas = edad_mas;
     }
 
@@ -34,20 +34,20 @@ public class Mascota {
         this.id_mas = id_mas;
     }
 
-    public Long getId_prop() {
-        return id_prop;
+    public String getNombre_mas() {
+        return nombre_mas;
     }
 
-    public void setId_prop(Long id_prop) {
-        this.id_prop = id_prop;
+    public void setNombre_mas(String nombre_mas) {
+        this.nombre_mas = nombre_mas;
     }
 
-    public Long getId_pas() {
-        return id_pas;
+    public String getRaza_mas() {
+        return raza_mas;
     }
 
-    public void setId_pas(Long id_pas) {
-        this.id_pas = id_pas;
+    public void setRaza_mas(String raza_mas) {
+        this.raza_mas = raza_mas;
     }
 
     public Long getEdad_mas() {
@@ -62,8 +62,8 @@ public class Mascota {
     public String toString() {
         return "Mascota{" +
                 "id_mas=" + id_mas +
-                ", id_prop=" + id_prop +
-                ", id_pas=" + id_pas +
+                ", nombre_mas='" + nombre_mas + '\'' +
+                ", raza_mas='" + raza_mas + '\'' +
                 ", edad_mas=" + edad_mas +
                 '}';
     }

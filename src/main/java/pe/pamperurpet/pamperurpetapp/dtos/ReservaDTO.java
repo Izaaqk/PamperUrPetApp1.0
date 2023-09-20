@@ -7,17 +7,17 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReservaDTO {
     private Long id_reser;
+    private String fechainicio_reser;
+    private String fechafin_reser;
+    private Long numeromascotas_mas;
     private Long id_pas;
-    private Long id_prop;
-    private String inicio_reser;
-    private String fin_reser;
 
-    public ReservaDTO(Long id_reser, Long id_pas, Long id_prop, String inicio_reser, String fin_reser) {
+    public ReservaDTO(Long id_reser, String fechainicio_reser, String fechafin_reser, Long numeromascotas_mas, Long id_pas) {
         this.id_reser = id_reser;
+        this.fechainicio_reser = fechainicio_reser;
+        this.fechafin_reser = fechafin_reser;
+        this.numeromascotas_mas = numeromascotas_mas;
         this.id_pas = id_pas;
-        this.id_prop = id_prop;
-        this.inicio_reser = inicio_reser;
-        this.fin_reser = fin_reser;
     }
 
     public Long getId_reser() {
@@ -28,6 +28,30 @@ public class ReservaDTO {
         this.id_reser = id_reser;
     }
 
+    public String getFechainicio_reser() {
+        return fechainicio_reser;
+    }
+
+    public void setFechainicio_reser(String fechainicio_reser) {
+        this.fechainicio_reser = fechainicio_reser;
+    }
+
+    public String getFechafin_reser() {
+        return fechafin_reser;
+    }
+
+    public void setFechafin_reser(String fechafin_reser) {
+        this.fechafin_reser = fechafin_reser;
+    }
+
+    public Long getNumeromascotas_mas() {
+        return numeromascotas_mas;
+    }
+
+    public void setNumeromascotas_mas(Long numeromascotas_mas) {
+        this.numeromascotas_mas = numeromascotas_mas;
+    }
+
     public Long getId_pas() {
         return id_pas;
     }
@@ -36,38 +60,14 @@ public class ReservaDTO {
         this.id_pas = id_pas;
     }
 
-    public Long getId_prop() {
-        return id_prop;
-    }
-
-    public void setId_prop(Long id_prop) {
-        this.id_prop = id_prop;
-    }
-
-    public String getInicio_reser() {
-        return inicio_reser;
-    }
-
-    public void setInicio_reser(String inicio_reser) {
-        this.inicio_reser = inicio_reser;
-    }
-
-    public String getFin_reser() {
-        return fin_reser;
-    }
-
-    public void setFin_reser(String fin_reser) {
-        this.fin_reser = fin_reser;
-    }
-
     @Override
     public String toString() {
         return "ReservaDTO{" +
                 "id_reser=" + id_reser +
+                ", fechainicio_reser='" + fechainicio_reser + '\'' +
+                ", fechafin_reser='" + fechafin_reser + '\'' +
+                ", numeromascotas_mas=" + numeromascotas_mas +
                 ", id_pas=" + id_pas +
-                ", id_prop=" + id_prop +
-                ", inicio_reser='" + inicio_reser + '\'' +
-                ", fin_reser='" + fin_reser + '\'' +
                 '}';
     }
 }
