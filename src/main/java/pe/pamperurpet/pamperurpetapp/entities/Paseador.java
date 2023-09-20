@@ -3,10 +3,7 @@ package pe.pamperurpet.pamperurpetapp.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,15 +12,20 @@ public class Paseador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_pas;
-    private String apellido_pas;
-    private String ubicacion_pas;
-    private Long telefono_pas;
+    @Column(name = "nombreapellido_pas", length = 50)
+    private String nombreapellido_pas;
+    @Column(name = "telefono_pas", length = 20)
+    private String telefono_pas;
+    @Column(name = "correo_pas", length = 35)
+    private String correo_pas;
+    private Long contraseña_pas;
 
-    public Paseador(Long id_pas, String apellido_pas, String ubicacion_pas, Long telefono_pas) {
+    public Paseador(Long id_pas, String nombreapellido_pas, String telefono_pas, String correo_pas, Long contraseña_pas) {
         this.id_pas = id_pas;
-        this.apellido_pas = apellido_pas;
-        this.ubicacion_pas = ubicacion_pas;
+        this.nombreapellido_pas = nombreapellido_pas;
         this.telefono_pas = telefono_pas;
+        this.correo_pas = correo_pas;
+        this.contraseña_pas = contraseña_pas;
     }
 
     public Long getId_pas() {
@@ -34,37 +36,46 @@ public class Paseador {
         this.id_pas = id_pas;
     }
 
-    public String getApellido_pas() {
-        return apellido_pas;
+    public String getNombreapellido_pas() {
+        return nombreapellido_pas;
     }
 
-    public void setApellido_pas(String apellido_pas) {
-        this.apellido_pas = apellido_pas;
+    public void setNombreapellido_pas(String nombreapellido_pas) {
+        this.nombreapellido_pas = nombreapellido_pas;
     }
 
-    public String getUbicacion_pas() {
-        return ubicacion_pas;
-    }
-
-    public void setUbicacion_pas(String ubicacion_pas) {
-        this.ubicacion_pas = ubicacion_pas;
-    }
-
-    public Long getTelefono_pas() {
+    public String getTelefono_pas() {
         return telefono_pas;
     }
 
-    public void setTelefono_pas(Long telefono_pas) {
+    public void setTelefono_pas(String telefono_pas) {
         this.telefono_pas = telefono_pas;
+    }
+
+    public String getCorreo_pas() {
+        return correo_pas;
+    }
+
+    public void setCorreo_pas(String correo_pas) {
+        this.correo_pas = correo_pas;
+    }
+
+    public Long getContraseña_pas() {
+        return contraseña_pas;
+    }
+
+    public void setContraseña_pas(Long contraseña_pas) {
+        this.contraseña_pas = contraseña_pas;
     }
 
     @Override
     public String toString() {
         return "Paseador{" +
                 "id_pas=" + id_pas +
-                ", apellido_pas='" + apellido_pas + '\'' +
-                ", ubicacion_pas='" + ubicacion_pas + '\'' +
-                ", telefono_pas=" + telefono_pas +
+                ", nombreapellido_pas='" + nombreapellido_pas + '\'' +
+                ", telefono_pas='" + telefono_pas + '\'' +
+                ", correo_pas='" + correo_pas + '\'' +
+                ", contraseña_pas=" + contraseña_pas +
                 '}';
     }
 }

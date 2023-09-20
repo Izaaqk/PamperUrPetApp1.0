@@ -1,14 +1,16 @@
 package pe.pamperurpet.pamperurpetapp.interfaceservice;
 
-import org.springframework.stereotype.Service;
+import pe.pamperurpet.pamperurpetapp.dtos.PropietarioDTO;
 import pe.pamperurpet.pamperurpetapp.entities.Propietario;
+import pe.pamperurpet.pamperurpetapp.exceptions.PropietarioNotFoundException;
 
 import java.util.List;
 
 public interface PropietarioService {
     public Propietario register(Propietario propietario);
-    public List<Propietario> listPropietarios();
-    public Propietario updatePropietario(Propietario propietario) throws Exception;
-    public Propietario deletePropietario(Long codigo) throws Exception;
+    public List<PropietarioDTO> listPropietarios();
+    public Propietario updateDataPropietario(Long propietarioid, PropietarioDTO nuevosDatos) throws PropietarioNotFoundException;
+
+    public PropietarioDTO deletePropietario(Long propietarioid) throws Exception;
 
 }

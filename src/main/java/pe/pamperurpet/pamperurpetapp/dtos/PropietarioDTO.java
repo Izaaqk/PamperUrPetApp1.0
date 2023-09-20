@@ -9,17 +9,17 @@ import javax.persistence.Column;
 @Data
 public class PropietarioDTO {
     private Long propietarioid;
-    private String nombreprop;
-    private String apellidoprop;
-    private String ubicacionprop;
-    private Long telefonoprop;
+    private String nombreapellido_prop;
+    private String telefono_prop;
+    private String correo_prop;
+    private Long contraseña_prop;
 
-    public PropietarioDTO(Long propietarioid, String nombreprop, String apellidoprop, String ubicacionprop, Long telefonoprop) {
+    public PropietarioDTO(Long propietarioid, String nombreapellido_prop, String telefono_prop, String correo_prop, Long contraseña_prop) {
         this.propietarioid = propietarioid;
-        this.nombreprop = nombreprop;
-        this.apellidoprop = apellidoprop;
-        this.ubicacionprop = ubicacionprop;
-        this.telefonoprop = telefonoprop;
+        this.nombreapellido_prop = nombreapellido_prop;
+        this.telefono_prop = telefono_prop;
+        this.correo_prop = correo_prop;
+        this.contraseña_prop = contraseña_prop;
     }
 
     public Long getPropietarioid() {
@@ -30,46 +30,46 @@ public class PropietarioDTO {
         this.propietarioid = propietarioid;
     }
 
-    public String getNombreprop() {
-        return nombreprop;
+    public String getNombreapellido_prop() {
+        return nombreapellido_prop;
     }
 
-    public void setNombreprop(String nombreprop) {
-        this.nombreprop = nombreprop;
+    public void setNombreapellido_prop(String nombreapellido_prop) {
+        this.nombreapellido_prop = nombreapellido_prop;
     }
 
-    public String getApellidoprop() {
-        return apellidoprop;
+    public String getTelefono_prop() {
+        return telefono_prop;
     }
 
-    public void setApellidoprop(String apellidoprop) {
-        this.apellidoprop = apellidoprop;
+    public void setTelefono_prop(String telefono_prop) {
+        this.telefono_prop = telefono_prop;
     }
 
-    public String getUbicacionprop() {
-        return ubicacionprop;
+    public String getCorreo_prop() {
+        return correo_prop;
     }
 
-    public void setUbicacionprop(String ubicacionprop) {
-        this.ubicacionprop = ubicacionprop;
+    public void setCorreo_prop(String correo_prop) {
+        this.correo_prop = correo_prop;
     }
 
-    public Long getTelefonoprop() {
-        return telefonoprop;
+    public Long getContraseña_prop() {
+        return contraseña_prop;
     }
 
-    public void setTelefonoprop(Long telefonoprop) {
-        this.telefonoprop = telefonoprop;
+    public void setContraseña_prop(Long contraseña_prop) {
+        this.contraseña_prop = contraseña_prop;
     }
 
     @Override
     public String toString() {
         return "PropietarioDTO{" +
                 "propietarioid=" + propietarioid +
-                ", nombreprop='" + nombreprop + '\'' +
-                ", apellidoprop='" + apellidoprop + '\'' +
-                ", ubicacionprop='" + ubicacionprop + '\'' +
-                ", telefonoprop=" + telefonoprop +
+                ", nombreapellido_prop='" + nombreapellido_prop + '\'' +
+                ", telefono_prop='" + telefono_prop + '\'' +
+                ", correo_prop='" + correo_prop + '\'' +
+                ", contraseña_prop=" + contraseña_prop +
                 '}';
     }
 }
