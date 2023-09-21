@@ -7,16 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class MascotaDTO {
     private Long id_mas;
-    private Long id_prop;
-    private Long id_pas;
-    private Long edad_mas;
-
-    public MascotaDTO(Long id_mas, Long id_prop, Long id_pas, Long edad_mas) {
-        this.id_mas = id_mas;
-        this.id_prop = id_prop;
-        this.id_pas = id_pas;
-        this.edad_mas = edad_mas;
-    }
+    private String nombre_mas;
+    private String raza_mas;
+    private String edad_mas;
+    private Long propietario_id_prop;
 
     public Long getId_mas() {
         return id_mas;
@@ -26,37 +20,54 @@ public class MascotaDTO {
         this.id_mas = id_mas;
     }
 
-    public Long getId_prop() {
-        return id_prop;
+    public String getNombre_mas() {
+        return nombre_mas;
     }
 
-    public void setId_prop(Long id_prop) {
-        this.id_prop = id_prop;
+    public void setNombre_mas(String nombre_mas) {
+        this.nombre_mas = nombre_mas;
     }
 
-    public Long getId_pas() {
-        return id_pas;
+    public String getRaza_mas() {
+        return raza_mas;
     }
 
-    public void setId_pas(Long id_pas) {
-        this.id_pas = id_pas;
+    public void setRaza_mas(String raza_mas) {
+        this.raza_mas = raza_mas;
     }
 
-    public Long getEdad_mas() {
+    public String getEdad_mas() {
         return edad_mas;
     }
 
-    public void setEdad_mas(Long edad_mas) {
+    public void setEdad_mas(String edad_mas) {
         this.edad_mas = edad_mas;
+    }
+
+    public Long getPropietario_id_prop() {
+        return propietario_id_prop;
+    }
+
+    public void setPropietario_id_prop(Long propietario_id_prop) {
+        this.propietario_id_prop = propietario_id_prop;
+    }
+
+    public MascotaDTO(Long id_mas, String nombre_mas, String raza_mas, String edad_mas, Long propietario_id_prop) {
+        this.id_mas = id_mas;
+        this.nombre_mas = nombre_mas;
+        this.raza_mas = raza_mas;
+        this.edad_mas = edad_mas;
+        this.propietario_id_prop = propietario_id_prop;
     }
 
     @Override
     public String toString() {
         return "MascotaDTO{" +
                 "id_mas=" + id_mas +
-                ", id_prop=" + id_prop +
-                ", id_pas=" + id_pas +
-                ", edad_mas=" + edad_mas +
+                ", nombre_mas='" + nombre_mas + '\'' +
+                ", raza_mas='" + raza_mas + '\'' +
+                ", edad_mas='" + edad_mas + '\'' +
+                ", propietario_id_prop=" + propietario_id_prop +
                 '}';
     }
 }
