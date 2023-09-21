@@ -14,6 +14,7 @@ import pe.pamperurpet.pamperurpetapp.exceptions.MascotaNotFoundException;
 import pe.pamperurpet.pamperurpetapp.exceptions.PropietarioNotFoundException;
 import pe.pamperurpet.pamperurpetapp.interfaceservice.MascotaService;
 import pe.pamperurpet.pamperurpetapp.interfaceservice.PropietarioService;
+import pe.pamperurpet.pamperurpetapp.repositories.PropietarioRepository;
 import pe.pamperurpet.pamperurpetapp.services.MascotaServiceImpl;
 import pe.pamperurpet.pamperurpetapp.services.PropietarioServiceImpl;
 
@@ -27,6 +28,12 @@ public class MascotaController {
     private MascotaService mascotaService;
     @Autowired //inyectando
     private MascotaServiceImpl mascotaServiceImpl;
+    @Autowired //inyectando
+    private PropietarioService propietarioService;
+    @Autowired //inyectando
+    private PropietarioRepository propietarioRepository;
+    @Autowired //inyectando
+    private PropietarioServiceImpl propietarioServiceImpl;
 
     @PostMapping("/mascota")
     public ResponseEntity<MascotaDTO> register(@RequestBody MascotaDTO mascotaDTO){
@@ -35,6 +42,32 @@ public class MascotaController {
         mascotaDTO = convertToDto(mascota);
         return new ResponseEntity<MascotaDTO>(mascotaDTO, HttpStatus.OK);
     }
+
+    @PostMapping("/mascota/{propietarioid}")
+    public ResponseEntity<MascotaDTO> register(@PathVariable Long propietarioid, @RequestBody MascotaDTO mascotaDTO) throws PropietarioNotFoundException {
+        try {
+            // Buscar al propietario por su ID utilizando propietarioServiceImpl
+            Propietario propietario = propietarioServiceImpl.getPropietarioById(propietarioid);
+
+            // Convertir el DTO de mascota a entidad Mascota
+            Mascota mascota = convertToEntity(mascotaDTO);
+
+            // Establecer la relación con el propietario
+            mascota.setPropietario(propietario);
+
+            // Registrar la mascota
+            mascota = mascotaServiceImpl.register(mascota);
+
+            // Convertir la entidad mascota a DTO
+            mascotaDTO = convertToDto(mascota);
+
+            return new ResponseEntity<MascotaDTO>(mascotaDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     @GetMapping("/mascotas")
     public ResponseEntity<List<MascotaDTO>> listMascotas() {

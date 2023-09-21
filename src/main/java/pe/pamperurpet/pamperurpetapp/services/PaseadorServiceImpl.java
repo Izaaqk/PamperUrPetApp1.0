@@ -34,6 +34,20 @@ public class PaseadorServiceImpl implements PaseadorService {
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
+    public Paseador getPaseadorById(Long id_pas) {
+        Optional<Paseador> optionalPaseador = paseadorRepository.findById(id_pas);
+
+        if (optionalPaseador.isPresent()) {
+            return optionalPaseador.get();
+        } else {
+            try {
+                throw new PaseadorNotFoundException("No se encontró un paseador con el ID proporcionado");
+            } catch (PaseadorNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     public Paseador updateDataPaseador(Long id_pas, PaseadorDTO nuevosDatos) throws PaseadorNotFoundException {
         Optional<Paseador> optionalPaseador = paseadorRepository.findById(id_pas);
