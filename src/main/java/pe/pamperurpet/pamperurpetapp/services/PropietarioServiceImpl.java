@@ -31,6 +31,21 @@ public class PropietarioServiceImpl implements PropietarioService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Propietario getPropietarioById(Long propietarioid) {
+        Optional<Propietario> optionalPropietario = propietarioRepository.findById(propietarioid);
+
+        if (optionalPropietario.isPresent()) {
+            return optionalPropietario.get();
+        } else {
+            try {
+                throw new PropietarioNotFoundException("No se encontró un propietario con el ID proporcionado");
+            } catch (PropietarioNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public Propietario updateDataPropietario(Long propietarioid, PropietarioDTO nuevosDatos) throws PropietarioNotFoundException {
         Optional<Propietario> optionalPropietario = propietarioRepository.findById(propietarioid);
 

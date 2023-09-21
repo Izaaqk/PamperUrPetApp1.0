@@ -1,10 +1,13 @@
 package pe.pamperurpet.pamperurpetapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +15,12 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@Transactional
+@Table(name = "Propietario")
 public class Propietario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "propietario_id")
     private Long propietarioid;
     @Column(name = "nombreapellido_prop", length = 50)
     private String nombreapellido_prop;
@@ -23,6 +29,16 @@ public class Propietario {
     @Column(name = "correo_prop", length = 35)
     private String correo_prop;
     private Long contraseña_prop;
+
+    @OneToOne(mappedBy = "propietario")
+    private Admin admin;
+    @OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mascota> mascotas = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_id_membresia")
+    private Membresia membresia;
+    @OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reserva> reservas = new ArrayList<>();
 
     public Propietario(Long propietarioid, String nombreapellido_prop, String telefono_prop, String correo_prop, Long contraseña_prop) {
         this.propietarioid = propietarioid;

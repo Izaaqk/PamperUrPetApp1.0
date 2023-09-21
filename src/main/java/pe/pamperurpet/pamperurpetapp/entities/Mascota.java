@@ -2,15 +2,15 @@ package pe.pamperurpet.pamperurpetapp.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @Entity
+@Transactional
+@Table(name = "Mascota")
 public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,12 @@ public class Mascota {
     private String nombre_mas;
     private String raza_mas;
     private Long edad_mas;
+    @OneToOne(mappedBy = "mascota")
+    private Admin admin;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Una mascota pertenece a un propietario
+    @JoinColumn(name = "fk_propietario_id") // Nombre de la columna de la clave foránea
+    private Propietario propietario;
 
     public Mascota(Long id_mas, String nombre_mas, String raza_mas, Long edad_mas) {
         this.id_mas = id_mas;
