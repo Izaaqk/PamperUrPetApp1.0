@@ -13,6 +13,7 @@ public class PropietarioDTO {
     private String telefono_prop;
     private String correo_prop;
     private Long contraseña_prop;
+    private MembresiaDTO membresiaDTO;
 
     public PropietarioDTO(Long propietarioid, String nombreapellido_prop, String telefono_prop, String correo_prop, Long contraseña_prop) {
         this.propietarioid = propietarioid;

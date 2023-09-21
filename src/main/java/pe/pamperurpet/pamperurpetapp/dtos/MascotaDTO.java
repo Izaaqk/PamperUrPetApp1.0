@@ -11,6 +11,7 @@ public class MascotaDTO {
     private String raza_mas;
     private Long edad_mas;
 
+
     public MascotaDTO(Long id_mas, String nombre_mas, String raza_mas, Long edad_mas) {
         this.id_mas = id_mas;
         this.nombre_mas = nombre_mas;

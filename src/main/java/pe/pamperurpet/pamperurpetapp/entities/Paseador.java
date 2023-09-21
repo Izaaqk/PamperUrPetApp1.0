@@ -2,12 +2,17 @@ package pe.pamperurpet.pamperurpetapp.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
+@Transactional
+@Table(name = "Paseador")
 public class Paseador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +24,10 @@ public class Paseador {
     @Column(name = "correo_pas", length = 35)
     private String correo_pas;
     private Long contraseña_pas;
+    @OneToOne(mappedBy = "paseador")
+    private Admin admin;
+    @OneToMany(mappedBy = "paseador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reserva> reservas = new ArrayList<>();
 
     public Paseador(Long id_pas, String nombreapellido_pas, String telefono_pas, String correo_pas, Long contraseña_pas) {
         this.id_pas = id_pas;

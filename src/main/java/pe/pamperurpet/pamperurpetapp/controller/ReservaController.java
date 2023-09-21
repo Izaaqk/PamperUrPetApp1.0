@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pe.pamperurpet.pamperurpetapp.dtos.PropietarioDTO;
 import pe.pamperurpet.pamperurpetapp.dtos.ReservaDTO;
+import pe.pamperurpet.pamperurpetapp.entities.Pago;
+import pe.pamperurpet.pamperurpetapp.entities.Paseador;
 import pe.pamperurpet.pamperurpetapp.entities.Propietario;
 import pe.pamperurpet.pamperurpetapp.entities.Reserva;
 import pe.pamperurpet.pamperurpetapp.exceptions.PropietarioNotFoundException;
 import pe.pamperurpet.pamperurpetapp.exceptions.ReservaNotFoundException;
 import pe.pamperurpet.pamperurpetapp.interfaceservice.PropietarioService;
 import pe.pamperurpet.pamperurpetapp.interfaceservice.ReservaService;
+import pe.pamperurpet.pamperurpetapp.services.PagoServiceImpl;
+import pe.pamperurpet.pamperurpetapp.services.PaseadorServiceImpl;
 import pe.pamperurpet.pamperurpetapp.services.PropietarioServiceImpl;
 import pe.pamperurpet.pamperurpetapp.services.ReservaServiceImpl;
 
@@ -27,6 +31,12 @@ public class ReservaController {
     private ReservaService reservaService;
     @Autowired //inyectando
     private ReservaServiceImpl reservaServiceImpl;
+    @Autowired //inyectando
+    private PaseadorServiceImpl paseadorServiceImpl;
+    @Autowired //inyectando
+    private PagoServiceImpl pagoServiceImpl;
+    @Autowired //inyectando
+    private PropietarioServiceImpl propietarioServiceImpl;
 
     @PostMapping("/reserva")
     public ResponseEntity<ReservaDTO> register(@RequestBody ReservaDTO reservaDTO){
@@ -35,6 +45,115 @@ public class ReservaController {
         reservaDTO = convertToDto(reserva);
         return new ResponseEntity<ReservaDTO>(reservaDTO, HttpStatus.OK);
     }
+
+    @PostMapping("/reserva/paseador/{id_pas}")
+    public ResponseEntity<ReservaDTO> createReservaWithPaseador(@PathVariable Long id_pas, @RequestBody ReservaDTO reservaDTO) {
+        try {
+            // Buscar al paseador por su ID utilizando paseadorServiceImpl
+            Paseador paseador = paseadorServiceImpl.getPaseadorById(id_pas);
+
+            // Convertir el DTO de reserva a entidad Reserva
+            Reserva reserva = convertToEntity(reservaDTO);
+
+            // Establecer la relación con el paseador
+            reserva.setPaseador(paseador);
+
+            // Registrar la reserva
+            reserva = reservaServiceImpl.register(reserva);
+
+            // Convertir la entidad reserva a DTO
+            reservaDTO = convertToDto(reserva);
+
+            return new ResponseEntity<>(reservaDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/reserva/pago/{id_pago}")
+    public ResponseEntity<ReservaDTO> createReservaWithPago(@PathVariable Long id_pago, @RequestBody ReservaDTO reservaDTO) {
+        try {
+            // Buscar el pago por su ID utilizando pagoServiceImpl
+            Pago pago = pagoServiceImpl.getPagoById(id_pago);
+
+            // Convertir el DTO de reserva a entidad Reserva
+            Reserva reserva = convertToEntity(reservaDTO);
+
+            // Establecer la relación con el pago
+            reserva.setPago(pago);
+
+            // Registrar la reserva
+            reserva = reservaServiceImpl.register(reserva);
+
+            // Convertir la entidad reserva a DTO
+            reservaDTO = convertToDto(reserva);
+
+            return new ResponseEntity<>(reservaDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/reserva/propietario/{propietarioid}")
+    public ResponseEntity<ReservaDTO> createReservaWithPropietario(@PathVariable Long propietarioid, @RequestBody ReservaDTO reservaDTO) {
+        try {
+            // Buscar al propietario por su ID utilizando propietarioServiceImpl
+            Propietario propietario = propietarioServiceImpl.getPropietarioById(propietarioid);
+
+            // Convertir el DTO de reserva a entidad Reserva
+            Reserva reserva = convertToEntity(reservaDTO);
+
+            // Establecer la relación con el propietario
+            reserva.setPropietario(propietario);
+
+            // Registrar la reserva
+            reserva = reservaServiceImpl.register(reserva);
+
+            // Convertir la entidad reserva a DTO
+            reservaDTO = convertToDto(reserva);
+
+            return new ResponseEntity<>(reservaDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/reserva/{id_pago}/{id_pas}/{propietarioid}")
+    public ResponseEntity<ReservaDTO> createReservaWithEntities(
+            @PathVariable Long id_pago,
+            @PathVariable Long id_pas,
+            @PathVariable Long propietarioid,
+            @RequestBody ReservaDTO reservaDTO) {
+        try {
+            // Buscar el pago por su ID utilizando pagoServiceImpl
+            Pago pago = pagoServiceImpl.getPagoById(id_pago);
+
+            // Buscar al paseador por su ID utilizando paseadorServiceImpl
+            Paseador paseador = paseadorServiceImpl.getPaseadorById(id_pas);
+
+            // Buscar al propietario por su ID utilizando propietarioServiceImpl
+            Propietario propietario = propietarioServiceImpl.getPropietarioById(propietarioid);
+
+            // Convertir el DTO de reserva a entidad Reserva
+            Reserva reserva = convertToEntity(reservaDTO);
+
+            // Establecer las relaciones
+            reserva.setPaseador(paseador);
+            reserva.setPago(pago);
+            reserva.setPropietario(propietario);
+
+            // Registrar la reserva
+            reserva = reservaServiceImpl.register(reserva);
+
+            // Convertir la entidad reserva a DTO
+            reservaDTO = convertToDto(reserva);
+
+            return new ResponseEntity<>(reservaDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @GetMapping("/reservas")
     public ResponseEntity<List<ReservaDTO>> listReservas() {
