@@ -1,7 +1,7 @@
 package pe.pamperurpet.pamperurpetapp.interfaceservice;
 
-import org.springframework.stereotype.Service;
+import pe.pamperurpet.pamperurpetapp.entities.Mascota;
 
-@Service
 public interface MascotaService {
+    public Mascota register(Mascota mascota);
 }

@@ -1,4 +1,16 @@
 package pe.pamperurpet.pamperurpetapp.services;
 
-public class MascotaServiceImpl {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pe.pamperurpet.pamperurpetapp.entities.Mascota;
+import pe.pamperurpet.pamperurpetapp.interfaceservice.MascotaService;
+import pe.pamperurpet.pamperurpetapp.repositories.MascotaRepository;
+
+@Service
+public class MascotaServiceImpl implements MascotaService {
+    @Autowired
+    private MascotaRepository mascotaRepository;
+    public Mascota register(Mascota mascota){
+        return mascotaRepository.save(mascota);
+    }
 }
