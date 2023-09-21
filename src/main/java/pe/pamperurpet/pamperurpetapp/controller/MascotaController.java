@@ -39,6 +39,16 @@ public class MascotaController {
         }
        return new ResponseEntity<Mascota>(mascota1,HttpStatus.OK);
    }
+   @DeleteMapping("/deletemascota/{id}")
+   Mascota delete(@PathVariable(value = "id") Long id){
+        Mascota mascota;
+        try{
+            mascota = mascotaService.deleteMascota(id);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se puede eliminar");
+        }
+        return mascota;
+   }
 
    private Mascota convertToEntity(MascotaDTO mascotaDTO){
        ModelMapper modelMapper = new ModelMapper();

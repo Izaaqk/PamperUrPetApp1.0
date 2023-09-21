@@ -17,4 +17,10 @@ public class MascotaServiceImpl implements MascotaService {
         mascotaRepository.findById(mascota.getId_mas()).orElseThrow(()->new Exception("No se encontro entidad"));
         return mascotaRepository.save(mascota);
     }
+    public Mascota deleteMascota(Long id) throws Exception{
+        Mascota mascota = mascotaRepository.findById(id).
+                orElseThrow(()->new Exception("No se encontró entidad"));
+        mascotaRepository.delete(mascota);
+        return mascota;
+    }
 }
